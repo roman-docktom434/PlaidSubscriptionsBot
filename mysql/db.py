@@ -91,3 +91,4 @@ async def update_expiration_date(user_id, id):
         await curs.execute(sql_update_expiration_date, (new_expiration_date, next_date_str, user_id, id))
 
     await connection.commit()
+    connection.close()
