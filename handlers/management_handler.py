@@ -1,17 +1,12 @@
-import dotenv
-dotenv.load_dotenv()
 from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
 from handlers.date_handler import AddSubscription
 import keyboard.keyboard as kb
-
 from mysql.db import get_user_data, deleting_a_subscriptions, edit_price
 
 router = Router()
-
-
 
 
 @router.callback_query(F.data == "management")
@@ -22,14 +17,14 @@ async def management(callback: CallbackQuery):
     if not response:
         await callback.message.answer(text="У Вас отсутствуют действующие подписки")
 
-    i = 0
-    id, service, name, date, price = response[i][0], response[i][1], response[i][2], response[i][3].date(), response[i][4]
-    await callback.message.edit_text(text=f"<b>Подписка</b> <code>{i+1}/{len(response)}</code>\n\n"
+    subscription_id = 0
+    id, service, name, date, price = response[subscription_id][0], response[subscription_id][1], response[subscription_id][2], response[subscription_id][3].date(), response[subscription_id][4]
+    await callback.message.edit_text(text=f"<b>Подписка</b> <code>{subscription_id+1}/{len(response)}</code>\n\n"
                                f"<b>Сервис:</b> <code>{service}</code>\n"
                                f"<b>Название:</b> <code>{"Отсутствует" if name is None else name}</code>\n"
                                f"<b>Дата истечения:</b> <code>{date}</code>\n"
                                f"<b>Цена:</b> <code>{price} ₽</code>",
-                          reply_markup=await kb.control_selection(i, len(response), id),
+                          reply_markup=await kb.control_selection(subscription_id, len(response), id),
                           parse_mode="HTML"
                           )
 

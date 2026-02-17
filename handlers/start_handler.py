@@ -1,13 +1,10 @@
-import os
-import dotenv
-dotenv.load_dotenv()
 from aiogram.filters import CommandStart
 from aiogram import Router
 from aiogram.types import Message
 
 import keyboard.keyboard as kb
 from mysql.db import inserting_user_data
-START_IMAGE = os.getenv('START_IMAGE')
+from config import START_IMAGE
 
 router = Router()
 

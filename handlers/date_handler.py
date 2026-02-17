@@ -1,6 +1,3 @@
-import os
-import dotenv
-dotenv.load_dotenv()
 from aiogram.types import CallbackQuery
 from aiogram import Router, F
 from aiogram.fsm.state import State, StatesGroup
@@ -8,6 +5,7 @@ from aiogram.fsm.context import FSMContext
 import calendar
 import locale
 
+from config import CHOOSING_DAY_IMAGE, CHOOSING_MONTH_IMAGE, TRIAL_IMAGE
 import keyboard.keyboard as kb
 
 locale.setlocale(locale.LC_ALL, 'ru_RU')
@@ -34,10 +32,6 @@ TRIAL_DAYS_KEYBOARD = [
     "30d", "60d", "90d", "365d"
 ]
 
-CHOOSING_MONTH_IMAGE = os.environ.get('CHOOSING_MONTH_IMAGE')
-CHOOSING_DAY_IMAGE = os.environ.get('CHOOSING_DAY_IMAGE')
-TRIAL_IMAGE = os.getenv('TRIAL_IMAGE')
-
 
 class AddSubscription(StatesGroup):
     waiting_subscription_day = State()
@@ -46,7 +40,6 @@ class AddSubscription(StatesGroup):
     waiting_subscription_new_price = State()
 
 async def choose_month(callback: CallbackQuery):
-
     await callback.message.delete()
 
     await callback.message.answer_photo(
@@ -56,8 +49,6 @@ async def choose_month(callback: CallbackQuery):
     )
 
 async def choose_trial_days(callback: CallbackQuery):
-
-
     await callback.message.delete()
 
     await callback.message.answer_photo(

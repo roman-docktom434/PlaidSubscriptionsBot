@@ -36,8 +36,8 @@ async def get_notification_dates():
         await curs.execute(sql_get_notifications)
 
         result = await curs.fetchall()
-        return result
-
+    connection.close()
+    return result
 
 async def get_user_data(user_id):
     connection = await get_connection()
@@ -46,8 +46,8 @@ async def get_user_data(user_id):
         await curs.execute(sql_user_data, (user_id,))
 
         result = await curs.fetchall()
-        return result
-
+    connection.close()
+    return result
 
 async def deleting_a_subscriptions(id):
     connection = await get_connection()
@@ -76,7 +76,8 @@ async def get_date(current_date):
         await curs.execute(sql_get_date, (current_date,))
 
         result = await curs.fetchall()
-        return result[0][0]
+    connection.close()
+    return result[0][0]
 
 async def update_expiration_date(user_id, id):
     current_date = datetime.now().date()

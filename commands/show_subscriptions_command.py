@@ -7,7 +7,6 @@ from keyboard import keyboard as kb
 
 router = Router()
 
-
 async def formating_text(user_id, message):
     response = await get_user_data(user_id)
     if not response:
@@ -16,11 +15,11 @@ async def formating_text(user_id, message):
     total_price = 0
     total_subs = 0
 
-    for i in range(0, len(response)):
-        service = response[i][1]
-        name = response[i][2]
-        date = response[i][3].date()
-        price = response[i][4]
+    for subscription in range(0, len(response)):
+        service = response[subscription][1]
+        name = response[subscription][2]
+        date = response[subscription][3].date()
+        price = response[subscription][4]
 
 
         full_text += (
@@ -48,7 +47,3 @@ async def show_subscriptions(event: Message | CallbackQuery):
         await event.message.edit_text(text=full_text, parse_mode="HTML", reply_markup=kb.management)
     else:
         await event.answer(text=full_text, parse_mode="HTML", reply_markup=kb.management)
-
-
-
-

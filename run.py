@@ -1,6 +1,3 @@
-import os
-import dotenv
-dotenv.load_dotenv()
 import asyncio
 from aiogram import Dispatcher, Bot
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
@@ -13,11 +10,11 @@ from commands.show_subscriptions_command import router as show_subscriptions_com
 from handlers.management_handler import router as management_handler_router
 
 from mailing.sending_out_informations import sending_out_informations
-
-BOT_TOKEN = os.getenv('BOT_TOKEN')
+from config import BOT_TOKEN
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
+
 
 async def main():
     dp.include_router(start_router)
@@ -32,6 +29,7 @@ async def main():
     scheduler.start()
 
     await dp.start_polling(bot)
+
 
 if __name__ == '__main__':
     try:
