@@ -6,7 +6,7 @@ DB_CONFIG = {
     'user': USER,
     'password': PASSWORD,
     'db': DB,
-    'port': PORT
+    'port': int(PORT)
 }
 
 
